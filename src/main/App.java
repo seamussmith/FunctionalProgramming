@@ -11,12 +11,14 @@ public class App
 {
     public static void main(String[] args) 
     {
-        // var x = System.currentTimeMillis();
-        // System.out.println(primeSieve(1000));
-        // System.out.println(System.currentTimeMillis() - x);
+        var primeUp = 1000;
+        var x = System.currentTimeMillis();
+        System.out.println("Sum of first " + primeUp + " prime numbers: " + primeSieve(primeUp));
+        System.out.println("Time taken: " + (System.currentTimeMillis() - x) + "ms");
+        System.out.println("-".repeat(30));
         var y = System.currentTimeMillis();
         printFiles("./TestFiles", "a");
-        System.out.println(System.currentTimeMillis() - y);
+        System.out.println("Time taken: " + (System.currentTimeMillis() - y) + "ms");
     }
     public static int primeSieve(int upto)
     {
@@ -31,6 +33,7 @@ public class App
     {
         try
         {
+            System.out.println("Searching through " + Files.list(Paths.get(directory)).count() + " files...");
             var matchingLines = Files.list(Paths.get(directory))
                     .parallel()
                     .map(x -> x.toFile())
@@ -48,7 +51,7 @@ public class App
                                     .contains(match) ? 1 : 0)
                             .sum())
                     .sum();
-            System.out.println(matchingLines);
+            System.out.println("Found " + matchingLines + " matching lines");
         }
         catch (IOException e) { throw new RuntimeException(e); }
     }
